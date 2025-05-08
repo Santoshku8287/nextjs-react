@@ -6,15 +6,10 @@ import classes from './PostList.module.css';
 
 
 function PostList({isPosting, onStopPosting}){
-    const [enteredBody, setEnteredBody] = useState('');
-    const [enteredAuthor, setEnteredAuthor] = useState('');
+    const [posts, setPosts] = useState([]);
 
-    function bodyChangeHandler(e){
-        setEnteredBody(e.target.value);
-    }
-
-    function authorChangeHandler(e){
-        setEnteredAuthor(e.target.value);
+    function addPostHandler(postData){
+        setPosts((existingPosts) => [postData, ...existingPosts]);
     }
 
     return (
@@ -22,11 +17,11 @@ function PostList({isPosting, onStopPosting}){
         {
             isPosting &&
                 <Modal onClose={onStopPosting}>
-                    <NewPost onBodyChange={bodyChangeHandler} onAuthorChange={authorChangeHandler}/>
+                    <NewPost onCancel={onStopPosting} onAddPost={addPostHandler}/>
                 </Modal>  
         }   
         <ul className={classes.post}>
-            <Post author={enteredAuthor} body={enteredBody}/>
+            {posts.map(post => <Post key={post.id} author={post.author} body={post.body}/>)}
         </ul>
         </>
     )
