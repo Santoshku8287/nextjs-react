@@ -14,15 +14,15 @@ function PostList({isPosting, onStopPosting}){
 
     return (
         <>
-        {
-            isPosting &&
-                <Modal onClose={onStopPosting}>
-                    <NewPost onCancel={onStopPosting} onAddPost={addPostHandler}/>
-                </Modal>  
-        }   
-        <ul className={classes.post}>
-            {posts.map(post => <Post key={post.id} author={post.author} body={post.body}/>)}
-        </ul>
+            {
+                isPosting &&
+                    <Modal onClose={onStopPosting}>
+                        <NewPost onCancel={onStopPosting} onAddPost={addPostHandler}/>
+                    </Modal>  
+            }   
+            <ul className={classes.post}>
+                {posts.map(post => <Post key={post.id} author={post.author} body={post.body}/>)}
+            </ul>
         </>
     )
 }
